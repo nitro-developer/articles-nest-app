@@ -23,6 +23,12 @@
       ],
       "@common/typeorm/*": [
         "libs/typeorm/src/*"
+      ],
+      "@common/jwt": [
+        "libs/jwt/src"
+      ],
+      "@common/jwt/*": [
+        "libs/jwt/src/*"
       ]
     }
   }

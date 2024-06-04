@@ -1,7 +1,10 @@
+import { User } from 'src/auth/entities/user.entity';
 import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinColumn,
+	ManyToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
@@ -12,12 +15,13 @@ export class Article {
 	id: string;
 
 	@Column()
-	description: string;
-
-	@Column({ name: 'publication_date' })
-	publicationDate: Date;
+	title: string;
 
 	@Column()
+	description: string;
+
+	@ManyToOne(() => User, (user) => user.id)
+	@JoinColumn({ name: 'author' })
 	author: string;
 
 	@CreateDateColumn({ name: 'created_at' })

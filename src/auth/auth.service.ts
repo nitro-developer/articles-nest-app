@@ -120,7 +120,7 @@ export class AuthService {
 
 	public async validate(body: ValidateDto) {
 		const { type, token } = body;
-		return await this.jwtService.vaildate(type, token);
+		return await this.jwtService.validate(type, token);
 	}
 
 	private async generateTokens(user: User) {

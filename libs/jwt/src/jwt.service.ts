@@ -45,7 +45,7 @@ export class JwtService {
 	 * @param token - токен
 	 * @returns Promise<IJwtPayload | null>
 	 */
-	public async vaildate(
+	public async validate(
 		type: 'access' | 'refresh',
 		token: string,
 	): Promise<IJwtPayload | null> {

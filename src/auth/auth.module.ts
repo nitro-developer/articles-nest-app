@@ -9,6 +9,7 @@ import { RefreshToken } from './entities/refreshtoken.entity';
 @Module({
 	imports: [TypeOrmModule.forFeature([User, RefreshToken]), JwtModule],
 	providers: [AuthService],
+	exports: [AuthService],
 	controllers: [AuthController],
 })
 export class AuthModule {}

@@ -8,9 +8,6 @@ import { TypeormModule } from '@common/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { ArticleModule } from './article/article.module';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true, envFilePath: './.env' }),
@@ -19,7 +16,5 @@ import { AppService } from './app.service';
 		AuthModule,
 		ArticleModule,
 	],
-	controllers: [AppController],
-	providers: [AppService],
 })
 export class AppModule {}

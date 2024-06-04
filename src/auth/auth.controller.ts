@@ -20,10 +20,10 @@ import {
 	ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { SignInResponse } from './response/signin.response';
-import { BadRequestResponse } from 'libs/typings/response/badrequest.response';
+import { BadRequestResponse } from '../../libs/typings/response/badrequest.response';
 import { SignUpDto } from './dto/signup.dto';
 import { AuthGuard } from './guard/auth.guard';
-import { UnauthorizedResponse } from 'libs/typings/response/unauthorized.response copy';
+import { UnauthorizedResponse } from '../../libs/typings/response/unauthorized.response';
 
 @ApiTags('Авторизация')
 @Controller('api/auth')

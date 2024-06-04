@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
 			throw new UnauthorizedException('Пользователь не автризован!');
 		}
 
-		const user = await this.jwtService.vaildate('access', jwtToken);
+		const user = await this.jwtService.validate('access', jwtToken);
 		if (user === null) {
 			throw new UnauthorizedException('Пользователь не автризован!');
 		}

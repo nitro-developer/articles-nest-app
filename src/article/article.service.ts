@@ -109,12 +109,14 @@ export class ArticleService {
 	public async findById(body: FindByIdDto) {
 		const { id } = body;
 
-		const cached = await this.cacheManager.get(`article:${id}`);
+		const cached: Article = await this.cacheManager.get(`article:${id}`);
 		if (cached) return cached;
 
-		const article = await this.articleRepository.find({ where: { id } });
+		const article = await this.articleRepository.findOne({ where: { id } });
 
-		await this.cacheManager.set(`article:${id}`, article, 30);
+		if (article !== null) {
+			await this.cacheManager.set(`article:${id}`, article, 30);
+		}
 
 		return article || null;
 	}

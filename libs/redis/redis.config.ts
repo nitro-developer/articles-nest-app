@@ -1,6 +1,10 @@
 import { CacheModuleAsyncOptions } from '@nestjs/cache-manager';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { redisStore } from 'cache-manager-redis-store';
+import { join } from 'path';
+import { config } from 'dotenv';
+
+config({ path: join(process.cwd(), '.env') });
 
 export const RedisOptions: CacheModuleAsyncOptions = {
 	isGlobal: true,

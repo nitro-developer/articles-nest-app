@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService as JWTService } from '@nestjs/jwt';
-
 import { IJwtPayload } from 'libs/typings/jwt/payload';
+import { config } from 'dotenv';
+import { join } from 'path';
+
+config({ path: join(process.cwd(), '.env') });
+
 @Injectable()
 export class JwtService {
 	constructor(private readonly jwtService: JWTService) {}

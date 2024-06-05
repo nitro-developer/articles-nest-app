@@ -18,7 +18,7 @@ const options = (): DataSourceOptions => {
 		database: configService.get('POSTGRES_DB') || 'qti123m',
 		type: 'postgres',
 		schema: 'public',
-		logging: true,
+		logging: false,
 		entities: [
 			join(
 				process.cwd(),

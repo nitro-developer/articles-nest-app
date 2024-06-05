@@ -1,4 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+	BadRequestException,
+	ForbiddenException,
+	Inject,
+	Injectable,
+	NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
@@ -33,7 +39,7 @@ export class ArticleService {
 		try {
 			return await this.articleRepository.save(article);
 		} catch (error) {
-			return;
+			throw new BadRequestException();
 		}
 	}
 
@@ -42,9 +48,15 @@ export class ArticleService {
 			where: { id: body.articleId },
 		});
 
-		if (!article) return;
+		if (!article) {
+			throw new NotFoundException('Статья не найдена!');
+		}
 
-		if (article.author !== body.author) return;
+		if (article.author !== body.author) {
+			throw new ForbiddenException(
+				'Вы не являетесь автором данной статьи!',
+			);
+		}
 
 		['title', 'description'].forEach((el) => {
 			if (article[el] !== body[el]) article[el] = body[el];
@@ -59,7 +71,7 @@ export class ArticleService {
 		try {
 			return await this.articleRepository.save(article);
 		} catch (error) {
-			return;
+			throw new BadRequestException();
 		}
 	}
 
@@ -68,9 +80,15 @@ export class ArticleService {
 			where: { id: body.articleId },
 		});
 
-		if (!article) return;
+		if (!article) {
+			throw new NotFoundException('Статья не найдена!');
+		}
 
-		if (article.author !== body.author) return;
+		if (article.author !== body.author) {
+			throw new ForbiddenException(
+				'Вы не являетесь автором данной статьи!',
+			);
+		}
 
 		const cached = await this.cacheManager.get(`article:${article.id}`);
 
@@ -81,7 +99,7 @@ export class ArticleService {
 		try {
 			return await this.articleRepository.delete({ id: article.id });
 		} catch (error) {
-			return;
+			throw new BadRequestException();
 		}
 	}
 
@@ -113,11 +131,12 @@ export class ArticleService {
 		if (cached) return cached;
 
 		const article = await this.articleRepository.findOne({ where: { id } });
-
-		if (article !== null) {
-			await this.cacheManager.set(`article:${id}`, article, 30);
+		if (!article) {
+			throw new NotFoundException();
 		}
 
-		return article || null;
+		await this.cacheManager.set(`article:${id}`, article, 30);
+
+		return article;
 	}
 }
